@@ -6,6 +6,8 @@ The Online Banking System is a Java desktop application that enables bank staff 
 
 This requirements document is organized into two phases: MVP (Minimum Viable Product) features that must be completed and functional for the 4-hour hackathon deadline, and Phase 2 stretch features to be implemented only if MVP is complete and demo-ready with time remaining.
 
+**Note**: The system uses MongoDB (NoSQL document database) for data persistence instead of a relational database, leveraging the MongoDB Java Driver for database operations.
+
 ## Glossary
 
 - **System**: The Online Banking System application

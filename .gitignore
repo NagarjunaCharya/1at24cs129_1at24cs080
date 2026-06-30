@@ -1,0 +1,14 @@
+# Compiled class files
+out/
+*.class
+
+# IDE configurations
+.idea/
+.vscode/
+*.iml
+
+# Gemini AI / Agent generated local files
+.gemini/
+.kiro/
+
+# We DO NOT ignore lib/ because it contains the required MongoDB jars for the hackathon
