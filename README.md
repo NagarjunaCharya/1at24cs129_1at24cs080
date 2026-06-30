@@ -13,18 +13,16 @@ A robust, desktop-based banking application built with **Java Swing** and **Mong
 ## Screenshots
 
 ### 1. Account Creation
-![Create Account](images/create-account.png)
+![Create Account](images/1.png)
 
 ### 2. Balance Enquiry
-![Balance Enquiry](images/balance-enquiry.png)
+![Balance Enquiry](images/2.png)
 
 ### 3. Transaction History
-![Transaction History](images/transaction-history.png)
+![Transaction History](images/3.png)
 
 ### 4. Database Backend (MongoDB)
-![MongoDB Compass](images/mongodb.png)
-
-*(Note: To display the images above, please save the screenshots you took into an `images/` folder in this repository named `create-account.png`, `balance-enquiry.png`, `transaction-history.png`, and `mongodb.png`)*
+![MongoDB Compass](images/4.png)
 
 ## Technology Stack
 
