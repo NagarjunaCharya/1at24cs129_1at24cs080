@@ -1,35 +1,101 @@
-# System Flowchart
+# Detailed Algorithmic Flowchart
 
-Here is the Mermaid flowchart representing the high-level data flow and application execution path (headings only).
+Here is the detailed logical flowchart representing the execution algorithm of the Online Banking System, styled perfectly to match your requested theme (Green for Start/I-O, Blue for Processes, Orange for Decisions, and Red for End).
 
 ```mermaid
 flowchart TD
-    %% User Interaction
-    User([User]) -->|Interacts with UI| MainFrame[Main Navigation]
+    %% ==========================================
+    %% Define Theme Styles
+    %% ==========================================
+    classDef startNode fill:#4CAF50,stroke:#388E3C,color:#fff,stroke-width:2px;
+    classDef endNode fill:#f44336,stroke:#d32f2f,color:#fff,stroke-width:2px;
+    classDef processNode fill:#e3f2fd,stroke:#64b5f6,color:#0d47a1,stroke-width:2px;
+    classDef ioNode fill:#e8f5e9,stroke:#81c784,color:#1b5e20,stroke-width:2px;
+    classDef decisionNode fill:#fff3e0,stroke:#ffb74d,color:#e65100,stroke-width:2px;
+
+    %% ==========================================
+    %% Nodes
+    %% ==========================================
+    Start([Start Application]) :::startNode
     
-    %% UI Navigation
-    MainFrame --> CreateAcc[Create Account Panel]
-    MainFrame --> Deposit[Deposit Panel]
-    MainFrame --> Withdraw[Withdraw Panel]
-    MainFrame --> Balance[Balance Enquiry Panel]
-    MainFrame --> History[Transaction History Panel]
+    InitDB[Initialize MongoDB Connection] :::processNode
+    CheckDB{Connection Successful?} :::decisionNode
+    ShowDBError[Print: Startup Error] :::ioNode
     
-    %% Service Layer Delegation
-    CreateAcc --> BankService{Bank Service Layer}
-    Deposit --> BankService
-    Withdraw --> BankService
-    Balance --> BankService
-    History --> BankService
+    LaunchGUI[Launch Main UI Frame] :::processNode
+    WaitUser{Wait for User Action} :::decisionNode
     
-    %% Database Access Layer
-    BankService -->|Account Operations| AccountDAO[Account DAO]
-    BankService -->|Transaction Logs| TransactionDAO[Transaction DAO]
+    %% Paths
+    ExitAction[Close Application] :::processNode
+    ActionCreate[Create Account Flow] :::processNode
+    ActionTransact[Transaction Flow (Deposit/Withdraw)] :::processNode
     
-    %% Database Target
-    AccountDAO --> MongoDB[(MongoDB Database)]
-    TransactionDAO --> MongoDB
+    %% Create Account Logic
+    InputCreate[Print: Enter Customer Details & Initial Deposit] :::ioNode
+    CheckDepositAmount{Initial Deposit > 0?} :::decisionNode
+    CreateDBAcc[AccountDAO: Insert Account to DB] :::processNode
+    RecordInitTxn[TransactionDAO: Record Initial Transaction] :::processNode
     
-    %% Return Path
-    MongoDB -.->|Returns Data| BankService
-    BankService -.->|Returns Status / Exceptions| MainFrame
+    %% Transaction Logic
+    InputTxn[Print: Enter Account Number & Amount] :::ioNode
+    CheckTxnAmount{Amount > 0?} :::decisionNode
+    FetchAcc[AccountDAO: Fetch Account via ID] :::processNode
+    CheckAccExists{Account Exists?} :::decisionNode
+    CheckBal{Balance >= Amount?} :::decisionNode
+    UpdateBal[Memory: Update Balance] :::processNode
+    SaveTxnDB[TransactionDAO: Atomic Push to MongoDB] :::processNode
+    
+    %% Results
+    ShowError[Print: Display Error Message] :::ioNode
+    ShowSuccess[Print: Display Success Message] :::ioNode
+    
+    End([End]) :::endNode
+
+    %% ==========================================
+    %% Connections (The Logic Flow)
+    %% ==========================================
+    Start --> InitDB
+    InitDB --> CheckDB
+    
+    %% DB Fail
+    CheckDB -- No --> ShowDBError
+    ShowDBError --> End
+    
+    %% DB Success -> Main Loop
+    CheckDB -- Yes --> LaunchGUI
+    LaunchGUI --> WaitUser
+    
+    %% User Options
+    WaitUser -- Selects 'Create Account' --> ActionCreate
+    WaitUser -- Selects 'Deposit / Withdraw' --> ActionTransact
+    WaitUser -- Selects 'Exit' --> ExitAction
+    
+    ExitAction --> End
+    
+    %% Create Account Path
+    ActionCreate --> InputCreate
+    InputCreate --> CheckDepositAmount
+    CheckDepositAmount -- No --> ShowError
+    CheckDepositAmount -- Yes --> CreateDBAcc
+    CreateDBAcc --> RecordInitTxn
+    RecordInitTxn --> ShowSuccess
+    
+    %% Transaction Path
+    ActionTransact --> InputTxn
+    InputTxn --> CheckTxnAmount
+    CheckTxnAmount -- No --> ShowError
+    CheckTxnAmount -- Yes --> FetchAcc
+    FetchAcc --> CheckAccExists
+    
+    CheckAccExists -- No --> ShowError
+    CheckAccExists -- Yes --> CheckBal
+    
+    CheckBal -- No --> ShowError
+    CheckBal -- Yes --> UpdateBal
+    UpdateBal --> SaveTxnDB
+    SaveTxnDB --> ShowSuccess
+    
+    %% Loop back to waiting state
+    ShowError --> WaitUser
+    ShowSuccess --> WaitUser
 ```
