@@ -16,40 +16,40 @@ flowchart TD
     %% ==========================================
     %% Nodes
     %% ==========================================
-    Start([Start Application]) :::startNode
+    Start([Start Application])
     
-    InitDB[Initialize MongoDB Connection] :::processNode
-    CheckDB{Connection Successful?} :::decisionNode
-    ShowDBError[Print: Startup Error] :::ioNode
+    InitDB[Initialize MongoDB Connection]
+    CheckDB{Connection Successful?}
+    ShowDBError[Print: Startup Error]
     
-    LaunchGUI[Launch Main UI Frame] :::processNode
-    WaitUser{Wait for User Action} :::decisionNode
+    LaunchGUI[Launch Main UI Frame]
+    WaitUser{Wait for User Action}
     
     %% Paths
-    ExitAction[Close Application] :::processNode
-    ActionCreate[Create Account Flow] :::processNode
-    ActionTransact[Transaction Flow (Deposit/Withdraw)] :::processNode
+    ExitAction[Close Application]
+    ActionCreate[Create Account Flow]
+    ActionTransact[Transaction Flow Deposit/Withdraw]
     
     %% Create Account Logic
-    InputCreate[Print: Enter Customer Details & Initial Deposit] :::ioNode
-    CheckDepositAmount{Initial Deposit > 0?} :::decisionNode
-    CreateDBAcc[AccountDAO: Insert Account to DB] :::processNode
-    RecordInitTxn[TransactionDAO: Record Initial Transaction] :::processNode
+    InputCreate[Print: Enter Customer Details & Initial Deposit]
+    CheckDepositAmount{Initial Deposit > 0?}
+    CreateDBAcc[AccountDAO: Insert Account to DB]
+    RecordInitTxn[TransactionDAO: Record Initial Transaction]
     
     %% Transaction Logic
-    InputTxn[Print: Enter Account Number & Amount] :::ioNode
-    CheckTxnAmount{Amount > 0?} :::decisionNode
-    FetchAcc[AccountDAO: Fetch Account via ID] :::processNode
-    CheckAccExists{Account Exists?} :::decisionNode
-    CheckBal{Balance >= Amount?} :::decisionNode
-    UpdateBal[Memory: Update Balance] :::processNode
-    SaveTxnDB[TransactionDAO: Atomic Push to MongoDB] :::processNode
+    InputTxn[Print: Enter Account Number & Amount]
+    CheckTxnAmount{Amount > 0?}
+    FetchAcc[AccountDAO: Fetch Account via ID]
+    CheckAccExists{Account Exists?}
+    CheckBal{Balance >= Amount?}
+    UpdateBal[Memory: Update Balance]
+    SaveTxnDB[TransactionDAO: Atomic Push to MongoDB]
     
     %% Results
-    ShowError[Print: Display Error Message] :::ioNode
-    ShowSuccess[Print: Display Success Message] :::ioNode
+    ShowError[Print: Display Error Message]
+    ShowSuccess[Print: Display Success Message]
     
-    End([End]) :::endNode
+    End([End])
 
     %% ==========================================
     %% Connections (The Logic Flow)
@@ -98,4 +98,13 @@ flowchart TD
     %% Loop back to waiting state
     ShowError --> WaitUser
     ShowSuccess --> WaitUser
+
+    %% ==========================================
+    %% Apply Styles
+    %% ==========================================
+    class Start startNode;
+    class End endNode;
+    class InitDB,LaunchGUI,ExitAction,ActionCreate,ActionTransact,CreateDBAcc,RecordInitTxn,FetchAcc,UpdateBal,SaveTxnDB processNode;
+    class ShowDBError,InputCreate,InputTxn,ShowError,ShowSuccess ioNode;
+    class CheckDB,WaitUser,CheckDepositAmount,CheckTxnAmount,CheckAccExists,CheckBal decisionNode;
 ```
