@@ -51,3 +51,7 @@ A robust, desktop-based banking application built with **Java Swing** and **Mong
 javac -d out -cp "lib/*" src/com/banking/**/*.java
 java -cp "out;lib/*" com.banking.Main
 ```
+
+## Application Flowchart
+
+![Application Flowchart](images/flowchart.svg)
