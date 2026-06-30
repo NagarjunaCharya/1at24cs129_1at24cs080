@@ -30,23 +30,24 @@ public class BalanceEnquiryPanel extends JPanel {
 
         // Title
         JLabel title = new JLabel("Balance Enquiry");
-        title.setFont(new Font("SansSerif", Font.BOLD, 20));
+        ThemeUtils.styleTitle(title);
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
         add(title, gbc);
         gbc.gridwidth = 1;
 
         // Account number
         gbc.gridx = 0; gbc.gridy = 1;
-        add(new JLabel("Account Number:"), gbc);
+        JLabel accLbl = new JLabel("Account Number:");
+        ThemeUtils.styleLabel(accLbl);
+        add(accLbl, gbc);
         accountField = new JTextField(20);
+        ThemeUtils.styleTextField(accountField);
         gbc.gridx = 1;
         add(accountField, gbc);
 
         // Button
         JButton checkBtn = new JButton("Check Balance");
-        // Default native styling
-        checkBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
-        checkBtn.setFocusPainted(false);
+        ThemeUtils.stylePrimaryButton(checkBtn);
         gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
         add(checkBtn, gbc);
 

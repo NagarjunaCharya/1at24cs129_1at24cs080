@@ -30,30 +30,34 @@ public class WithdrawPanel extends JPanel {
 
         // Title
         JLabel title = new JLabel("Withdraw Money");
-        title.setFont(new Font("SansSerif", Font.BOLD, 20));
+        ThemeUtils.styleTitle(title);
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
         add(title, gbc);
         gbc.gridwidth = 1;
 
         // Account number
         gbc.gridx = 0; gbc.gridy = 1;
-        add(new JLabel("Account Number:"), gbc);
+        JLabel accLbl = new JLabel("Account Number:");
+        ThemeUtils.styleLabel(accLbl);
+        add(accLbl, gbc);
         accountField = new JTextField(20);
+        ThemeUtils.styleTextField(accountField);
         gbc.gridx = 1;
         add(accountField, gbc);
 
         // Amount
         gbc.gridx = 0; gbc.gridy = 2;
-        add(new JLabel("Amount:"), gbc);
+        JLabel amtLbl = new JLabel("Amount:");
+        ThemeUtils.styleLabel(amtLbl);
+        add(amtLbl, gbc);
         amountField = new JTextField(20);
+        ThemeUtils.styleTextField(amountField);
         gbc.gridx = 1;
         add(amountField, gbc);
 
         // Button
         JButton withdrawBtn = new JButton("Withdraw");
-        // Default native styling
-        withdrawBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
-        withdrawBtn.setFocusPainted(false);
+        ThemeUtils.styleDangerButton(withdrawBtn);
         gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
         add(withdrawBtn, gbc);
 

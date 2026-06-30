@@ -29,30 +29,34 @@ public class DepositPanel extends JPanel {
 
         // Title
         JLabel title = new JLabel("Deposit Money");
-        title.setFont(new Font("SansSerif", Font.BOLD, 20));
+        ThemeUtils.styleTitle(title);
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
         add(title, gbc);
         gbc.gridwidth = 1;
 
         // Account number
         gbc.gridx = 0; gbc.gridy = 1;
-        add(new JLabel("Account Number:"), gbc);
+        JLabel accLbl = new JLabel("Account Number:");
+        ThemeUtils.styleLabel(accLbl);
+        add(accLbl, gbc);
         accountField = new JTextField(20);
+        ThemeUtils.styleTextField(accountField);
         gbc.gridx = 1;
         add(accountField, gbc);
 
         // Amount
         gbc.gridx = 0; gbc.gridy = 2;
-        add(new JLabel("Amount:"), gbc);
+        JLabel amtLbl = new JLabel("Amount:");
+        ThemeUtils.styleLabel(amtLbl);
+        add(amtLbl, gbc);
         amountField = new JTextField(20);
+        ThemeUtils.styleTextField(amountField);
         gbc.gridx = 1;
         add(amountField, gbc);
 
         // Button
         JButton depositBtn = new JButton("Deposit");
-        // Default native styling
-        depositBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
-        depositBtn.setFocusPainted(false);
+        ThemeUtils.styleSuccessButton(depositBtn);
         gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
         add(depositBtn, gbc);
 

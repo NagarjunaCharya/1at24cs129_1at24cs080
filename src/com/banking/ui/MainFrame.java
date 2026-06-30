@@ -43,13 +43,13 @@ public class MainFrame extends JFrame {
         // Title label
         JLabel titleLabel = new JLabel("Banking System", SwingConstants.CENTER);
         titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         navPanel.add(titleLabel);
 
         for (int i = 0; i < labels.length; i++) {
             JButton btn = new JButton(labels[i]);
-            btn.setFocusPainted(false);
-            btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+            ThemeUtils.styleNavButton(btn);
             final String name = cardNames[i];
             btn.addActionListener(e -> cardLayout.show(cardPanel, name));
             navPanel.add(btn);

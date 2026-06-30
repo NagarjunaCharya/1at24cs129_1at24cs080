@@ -30,7 +30,7 @@ public class CreateAccountPanel extends JPanel {
 
         // Title
         JLabel title = new JLabel("Create New Account");
-        title.setFont(new Font("SansSerif", Font.BOLD, 20));
+        ThemeUtils.styleTitle(title);
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
         add(title, gbc);
         gbc.gridwidth = 1;
@@ -44,16 +44,16 @@ public class CreateAccountPanel extends JPanel {
 
         // Account type dropdown
         gbc.gridx = 0; gbc.gridy = 6;
-        add(new JLabel("Account Type:"), gbc);
+        JLabel typeLbl = new JLabel("Account Type:");
+        ThemeUtils.styleLabel(typeLbl);
+        add(typeLbl, gbc);
         accountTypeBox = new JComboBox<>(new String[]{"SAVINGS", "CURRENT"});
         gbc.gridx = 1;
         add(accountTypeBox, gbc);
 
         // Submit button
         JButton createBtn = new JButton("Create Account");
-        // Default native styling
-        createBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
-        createBtn.setFocusPainted(false);
+        ThemeUtils.styleSuccessButton(createBtn);
         gbc.gridx = 0; gbc.gridy = 7; gbc.gridwidth = 2;
         add(createBtn, gbc);
 
@@ -63,8 +63,11 @@ public class CreateAccountPanel extends JPanel {
     private JTextField addField(String label, int row,
                                 GridBagConstraints gbc) {
         gbc.gridx = 0; gbc.gridy = row;
-        add(new JLabel(label), gbc);
+        JLabel lbl = new JLabel(label);
+        ThemeUtils.styleLabel(lbl);
+        add(lbl, gbc);
         JTextField field = new JTextField(20);
+        ThemeUtils.styleTextField(field);
         gbc.gridx = 1;
         add(field, gbc);
         return field;

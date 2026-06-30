@@ -33,19 +33,20 @@ public class TransactionHistoryPanel extends JPanel {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
         JLabel title = new JLabel("Transaction History");
-        title.setFont(new Font("SansSerif", Font.BOLD, 20));
+        ThemeUtils.styleTitle(title);
 
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         titlePanel.add(title);
 
-        topPanel.add(new JLabel("Account Number:"));
+        JLabel accLbl = new JLabel("Account Number:");
+        ThemeUtils.styleLabel(accLbl);
+        topPanel.add(accLbl);
         accountField = new JTextField(18);
+        ThemeUtils.styleTextField(accountField);
         topPanel.add(accountField);
 
         JButton viewBtn = new JButton("View History");
-        // Default native styling
-        viewBtn.setFont(new Font("SansSerif", Font.BOLD, 13));
-        viewBtn.setFocusPainted(false);
+        ThemeUtils.stylePrimaryButton(viewBtn);
         topPanel.add(viewBtn);
 
         JPanel northPanel = new JPanel(new BorderLayout());
